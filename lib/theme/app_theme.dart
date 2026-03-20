@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppColors {
   // Primary colors
@@ -17,9 +18,12 @@ class AppColors {
 
 class AppTheme {
   static ThemeData get lightTheme {
+    final tajawal = GoogleFonts.tajawal;
+    final amiri = GoogleFonts.amiri;
+
     return ThemeData(
       useMaterial3: true,
-      colorScheme: ColorScheme(
+      colorScheme: const ColorScheme(
         brightness: Brightness.light,
         primary: AppColors.primary,
         onPrimary: AppColors.white,
@@ -33,14 +37,38 @@ class AppTheme {
         onError: AppColors.white,
       ),
       scaffoldBackgroundColor: AppColors.background,
-      fontFamily: 'Tajawal',
-      appBarTheme: const AppBarTheme(
+      textTheme: GoogleFonts.tajawalTextTheme().copyWith(
+        headlineLarge: amiri(
+          fontSize: 28,
+          fontWeight: FontWeight.w700,
+          color: AppColors.textPrimary,
+        ),
+        headlineMedium: amiri(
+          fontSize: 22,
+          fontWeight: FontWeight.w700,
+          color: AppColors.textPrimary,
+        ),
+        bodyLarge: amiri(
+          fontSize: 18,
+          color: AppColors.textPrimary,
+          height: 2.0,
+        ),
+        bodyMedium: tajawal(
+          fontSize: 15,
+          color: AppColors.textSecondary,
+        ),
+        labelLarge: tajawal(
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+          color: AppColors.textPrimary,
+        ),
+      ),
+      appBarTheme: AppBarTheme(
         backgroundColor: AppColors.primary,
         foregroundColor: AppColors.white,
         elevation: 0,
         centerTitle: true,
-        titleTextStyle: TextStyle(
-          fontFamily: 'Tajawal',
+        titleTextStyle: tajawal(
           fontSize: 20,
           fontWeight: FontWeight.w700,
           color: AppColors.white,
@@ -51,37 +79,6 @@ class AppTheme {
         elevation: 2,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
-        ),
-      ),
-      textTheme: const TextTheme(
-        headlineLarge: TextStyle(
-          fontFamily: 'Amiri',
-          fontSize: 28,
-          fontWeight: FontWeight.w700,
-          color: AppColors.textPrimary,
-        ),
-        headlineMedium: TextStyle(
-          fontFamily: 'Amiri',
-          fontSize: 22,
-          fontWeight: FontWeight.w700,
-          color: AppColors.textPrimary,
-        ),
-        bodyLarge: TextStyle(
-          fontFamily: 'Amiri',
-          fontSize: 18,
-          color: AppColors.textPrimary,
-          height: 2.0,
-        ),
-        bodyMedium: TextStyle(
-          fontFamily: 'Tajawal',
-          fontSize: 15,
-          color: AppColors.textSecondary,
-        ),
-        labelLarge: TextStyle(
-          fontFamily: 'Tajawal',
-          fontSize: 16,
-          fontWeight: FontWeight.w600,
-          color: AppColors.textPrimary,
         ),
       ),
     );

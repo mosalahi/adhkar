@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../models/adhkar_model.dart';
 import '../theme/app_theme.dart';
 
@@ -50,8 +51,7 @@ class _DhikrScreenState extends State<DhikrScreen> {
             child: Center(
               child: Text(
                 '${widget.currentIndex + 1} / ${widget.totalCount}',
-                style: const TextStyle(
-                  fontFamily: 'Tajawal',
+                style: GoogleFonts.tajawal(
                   fontSize: 14,
                   color: AppColors.white,
                 ),
@@ -96,8 +96,7 @@ class _DhikrScreenState extends State<DhikrScreen> {
             child: SingleChildScrollView(
               child: Text(
                 widget.dhikr.text,
-                style: const TextStyle(
-                  fontFamily: 'Amiri',
+                style: GoogleFonts.amiri(
                   fontSize: 22,
                   color: AppColors.textPrimary,
                   height: 2.2,
@@ -115,10 +114,9 @@ class _DhikrScreenState extends State<DhikrScreen> {
               children: [
                 const Icon(Icons.star, color: AppColors.golden, size: 16),
                 const SizedBox(width: 6),
-                const Text(
+                Text(
                   'الفضل:',
-                  style: TextStyle(
-                    fontFamily: 'Tajawal',
+                  style: GoogleFonts.tajawal(
                     fontWeight: FontWeight.w700,
                     color: AppColors.golden,
                     fontSize: 13,
@@ -129,8 +127,7 @@ class _DhikrScreenState extends State<DhikrScreen> {
             const SizedBox(height: 4),
             Text(
               widget.dhikr.fadl!,
-              style: const TextStyle(
-                fontFamily: 'Tajawal',
+              style: GoogleFonts.tajawal(
                 fontSize: 13,
                 color: AppColors.textSecondary,
                 height: 1.6,
@@ -147,8 +144,7 @@ class _DhikrScreenState extends State<DhikrScreen> {
                 Expanded(
                   child: Text(
                     widget.dhikr.source!,
-                    style: const TextStyle(
-                      fontFamily: 'Tajawal',
+                    style: GoogleFonts.tajawal(
                       fontSize: 12,
                       color: AppColors.secondary,
                     ),
@@ -168,8 +164,7 @@ class _DhikrScreenState extends State<DhikrScreen> {
               ),
               child: Text(
                 'التكرار: ${widget.dhikr.count} مرة',
-                style: const TextStyle(
-                  fontFamily: 'Tajawal',
+                style: GoogleFonts.tajawal(
                   fontSize: 12,
                   color: AppColors.primary,
                   fontWeight: FontWeight.w600,
@@ -206,8 +201,7 @@ class _DhikrScreenState extends State<DhikrScreen> {
             child: Center(
               child: Text(
                 _isDone ? '✓' : '$_counter',
-                style: const TextStyle(
-                  fontFamily: 'Tajawal',
+                style: GoogleFonts.tajawal(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                   color: AppColors.white,
@@ -221,8 +215,7 @@ class _DhikrScreenState extends State<DhikrScreen> {
           _isDone
               ? 'تمّ الذكر'
               : 'اضغط للتسبيح (${widget.dhikr.count - _counter} متبقي)',
-          style: TextStyle(
-            fontFamily: 'Tajawal',
+          style: GoogleFonts.tajawal(
             fontSize: 14,
             color: _isDone ? AppColors.golden : AppColors.textSecondary,
             fontWeight: _isDone ? FontWeight.w700 : FontWeight.normal,
@@ -235,7 +228,7 @@ class _DhikrScreenState extends State<DhikrScreen> {
           label: const Text('إعادة'),
           style: TextButton.styleFrom(
             foregroundColor: AppColors.textSecondary,
-            textStyle: const TextStyle(fontFamily: 'Tajawal', fontSize: 13),
+            textStyle: GoogleFonts.tajawal(fontSize: 13),
           ),
         ),
       ],

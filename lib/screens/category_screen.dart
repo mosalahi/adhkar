@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../models/adhkar_model.dart';
 import '../theme/app_theme.dart';
 import 'dhikr_screen.dart';
@@ -45,8 +46,7 @@ class CategoryScreen extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             category.description,
-            style: const TextStyle(
-              fontFamily: 'Tajawal',
+            style: GoogleFonts.tajawal(
               fontSize: 14,
               color: AppColors.white,
             ),
@@ -61,8 +61,7 @@ class CategoryScreen extends StatelessWidget {
             ),
             child: Text(
               '${category.adhkar.length} ذكر',
-              style: const TextStyle(
-                fontFamily: 'Tajawal',
+              style: GoogleFonts.tajawal(
                 fontSize: 13,
                 color: AppColors.white,
                 fontWeight: FontWeight.w600,
@@ -95,8 +94,7 @@ class CategoryScreen extends StatelessWidget {
               backgroundColor: AppColors.primary,
               child: Text(
                 '${index + 1}',
-                style: const TextStyle(
-                  fontFamily: 'Tajawal',
+                style: GoogleFonts.tajawal(
                   color: AppColors.white,
                   fontWeight: FontWeight.bold,
                 ),
@@ -106,8 +104,7 @@ class CategoryScreen extends StatelessWidget {
               dhikr.text.length > 80
                   ? '${dhikr.text.substring(0, 80)}...'
                   : dhikr.text,
-              style: const TextStyle(
-                fontFamily: 'Amiri',
+              style: GoogleFonts.amiri(
                 fontSize: 16,
                 color: AppColors.textPrimary,
                 height: 1.6,
@@ -116,8 +113,7 @@ class CategoryScreen extends StatelessWidget {
             subtitle: dhikr.source != null
                 ? Text(
                     dhikr.source!,
-                    style: const TextStyle(
-                      fontFamily: 'Tajawal',
+                    style: GoogleFonts.tajawal(
                       fontSize: 12,
                       color: AppColors.golden,
                     ),

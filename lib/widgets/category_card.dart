@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../models/adhkar_model.dart';
 import '../theme/app_theme.dart';
 
@@ -52,8 +53,7 @@ class CategoryCard extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Text(
                 category.name,
-                style: const TextStyle(
-                  fontFamily: 'Tajawal',
+                style: GoogleFonts.tajawal(
                   fontSize: 14,
                   fontWeight: FontWeight.w700,
                   color: AppColors.textPrimary,
@@ -73,8 +73,7 @@ class CategoryCard extends StatelessWidget {
               ),
               child: Text(
                 '${category.adhkar.length} ذكر',
-                style: const TextStyle(
-                  fontFamily: 'Tajawal',
+                style: GoogleFonts.tajawal(
                   fontSize: 11,
                   color: AppColors.secondary,
                   fontWeight: FontWeight.w600,

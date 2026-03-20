@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../models/adhkar_model.dart';
 import '../theme/app_theme.dart';
 import '../widgets/category_card.dart';
@@ -74,23 +75,21 @@ class _HomeScreenState extends State<HomeScreen> {
           bottomRight: Radius.circular(24),
         ),
       ),
-      child: const Column(
+      child: Column(
         children: [
           Text(
             'بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ',
-            style: TextStyle(
-              fontFamily: 'Amiri',
+            style: GoogleFonts.amiri(
               fontSize: 20,
               color: AppColors.golden,
               fontWeight: FontWeight.w700,
             ),
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(
             'أذكار مختارة من صحيح السنة النبوية',
-            style: TextStyle(
-              fontFamily: 'Tajawal',
+            style: GoogleFonts.tajawal(
               fontSize: 14,
               color: AppColors.white,
             ),
@@ -103,10 +102,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildCategoryGrid() {
     if (_categories.isEmpty) {
-      return const Center(
+      return Center(
         child: Text(
           'لا توجد بيانات',
-          style: TextStyle(fontFamily: 'Tajawal', fontSize: 16),
+          style: GoogleFonts.tajawal(fontSize: 16),
         ),
       );
     }
