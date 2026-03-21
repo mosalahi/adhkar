@@ -17,6 +17,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<AdhkarCategory> _categories = [];
   bool _isLoading = true;
+  bool _hasError = false;
 
   @override
   void initState() {
@@ -45,20 +46,12 @@ class _HomeScreenState extends State<HomeScreen> {
           _isLoading = false;
         });
       }
+    } on FormatException catch (e) {
+      debugPrint('خطأ في تنسيق البيانات: $e');
+      if (mounted) setState(() { _isLoading = false; _hasError = true; });
     } catch (e) {
-      debugPrint('خطأ في تحميل الأذكار: $e');
-      if (mounted) {
-        setState(() => _isLoading = false);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              'تعذّر تحميل البيانات',
-              style: GoogleFonts.tajawal(),
-            ),
-            backgroundColor: AppColors.primary,
-          ),
-        );
-      }
+      debugPrint('خطأ غير متوقع في تحميل الأذكار: $e');
+      if (mounted) setState(() { _isLoading = false; _hasError = true; });
     }
   }
 
@@ -74,7 +67,43 @@ class _HomeScreenState extends State<HomeScreen> {
           ? const Center(
               child: CircularProgressIndicator(color: AppColors.golden),
             )
-          : Column(
+          : _hasError
+              ? Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(Icons.error_outline,
+                          color: AppColors.golden, size: 48),
+                      const SizedBox(height: 12),
+                      Text(
+                        'تعذّر تحميل البيانات',
+                        style: GoogleFonts.tajawal(
+                          fontSize: 16,
+                          color: AppColors.textPrimary,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      TextButton.icon(
+                        onPressed: () {
+                          setState(() {
+                            _isLoading = true;
+                            _hasError = false;
+                          });
+                          _loadAdhkar();
+                        },
+                        icon: const Icon(Icons.refresh),
+                        label: Text(
+                          'إعادة المحاولة',
+                          style: GoogleFonts.tajawal(),
+                        ),
+                        style: TextButton.styleFrom(
+                          foregroundColor: AppColors.primary,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              : Column(
               children: [
                 _buildHeader(),
                 Expanded(

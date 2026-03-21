@@ -155,7 +155,7 @@ class _DhikrScreenState extends State<DhikrScreen> {
           // Count badge
           const SizedBox(height: 8),
           Align(
-            alignment: Alignment.centerLeft,
+            alignment: AlignmentDirectional.centerEnd,
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               decoration: BoxDecoration(

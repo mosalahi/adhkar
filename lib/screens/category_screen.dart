@@ -101,9 +101,9 @@ class CategoryScreen extends StatelessWidget {
               ),
             ),
             title: Text(
-              dhikr.text.length > 80
-                  ? '${dhikr.text.substring(0, 80)}...'
-                  : dhikr.text,
+              dhikr.text,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
               style: GoogleFonts.amiri(
                 fontSize: 16,
                 color: AppColors.textPrimary,
