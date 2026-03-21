@@ -47,7 +47,7 @@ class Dhikr {
       text: json['text'] as String,
       fadl: json['fadl'] as String?,
       source: json['source'] as String?,
-      count: json['count'] as int? ?? 1,
+      count: ((json['count'] as int?) ?? 1).clamp(1, 10000),
     );
   }
 }

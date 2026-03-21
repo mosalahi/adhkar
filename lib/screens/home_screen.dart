@@ -29,15 +29,36 @@ class _HomeScreenState extends State<HomeScreen> {
       final String jsonString =
           await rootBundle.loadString('assets/data/adhkar.json');
       final Map<String, dynamic> jsonData = json.decode(jsonString);
+
+      if (jsonData['categories'] is! List) {
+        throw const FormatException('بنية JSON غير صالحة: مفتاح categories مفقود أو غير صحيح');
+      }
+
       final List<dynamic> categoriesJson = jsonData['categories'] as List<dynamic>;
-      setState(() {
-        _categories = categoriesJson
-            .map((item) => AdhkarCategory.fromJson(item as Map<String, dynamic>))
-            .toList();
-        _isLoading = false;
-      });
+      final categories = categoriesJson
+          .map((item) => AdhkarCategory.fromJson(item as Map<String, dynamic>))
+          .toList();
+
+      if (mounted) {
+        setState(() {
+          _categories = categories;
+          _isLoading = false;
+        });
+      }
     } catch (e) {
-      setState(() => _isLoading = false);
+      debugPrint('خطأ في تحميل الأذكار: $e');
+      if (mounted) {
+        setState(() => _isLoading = false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'تعذّر تحميل البيانات',
+              style: GoogleFonts.tajawal(),
+            ),
+            backgroundColor: AppColors.primary,
+          ),
+        );
+      }
     }
   }
 
