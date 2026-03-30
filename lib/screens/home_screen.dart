@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 import '../models/adhkar_model.dart';
 import '../theme/app_theme.dart';
 import '../widgets/category_card.dart';
@@ -25,21 +26,44 @@ class _HomeScreenState extends State<HomeScreen> {
     _loadAdhkar();
   }
 
+  static const _remoteUrl =
+      'https://raw.githubusercontent.com/mosalahi/adhkar/refs/heads/claude/flutter-adhkar-app-cfJOl/assets/data/adhkar.json';
+
+  List<AdhkarCategory> _parseCategories(String jsonString) {
+    final Map<String, dynamic> jsonData = json.decode(jsonString);
+    if (jsonData['categories'] is! List) {
+      throw const FormatException(
+          'بنية JSON غير صالحة: مفتاح categories مفقود أو غير صحيح');
+    }
+    return (jsonData['categories'] as List<dynamic>)
+        .map((item) => AdhkarCategory.fromJson(item as Map<String, dynamic>))
+        .toList();
+  }
+
   Future<void> _loadAdhkar() async {
+    // 1. Try remote
+    try {
+      final response =
+          await http.get(Uri.parse(_remoteUrl)).timeout(const Duration(seconds: 10));
+      if (response.statusCode == 200) {
+        final categories = _parseCategories(response.body);
+        if (mounted) {
+          setState(() {
+            _categories = categories;
+            _isLoading = false;
+          });
+        }
+        return;
+      }
+    } catch (e) {
+      debugPrint('تعذّر التحميل من الشبكة، جاري استخدام النسخة المحلية: $e');
+    }
+
+    // 2. Fallback to local asset
     try {
       final String jsonString =
           await rootBundle.loadString('assets/data/adhkar.json');
-      final Map<String, dynamic> jsonData = json.decode(jsonString);
-
-      if (jsonData['categories'] is! List) {
-        throw const FormatException('بنية JSON غير صالحة: مفتاح categories مفقود أو غير صحيح');
-      }
-
-      final List<dynamic> categoriesJson = jsonData['categories'] as List<dynamic>;
-      final categories = categoriesJson
-          .map((item) => AdhkarCategory.fromJson(item as Map<String, dynamic>))
-          .toList();
-
+      final categories = _parseCategories(jsonString);
       if (mounted) {
         setState(() {
           _categories = categories;
